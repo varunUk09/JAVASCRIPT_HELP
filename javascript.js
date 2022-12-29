@@ -12,7 +12,7 @@ window.location.href = "path"
 /*====================================================================
 ********** [3] ASSIGN MULTIPLE CSS PROPERTIES TO AN ELEMENT ***********
 ======================================================================*/
-element.style.cssText = 'property1:value;property2:value;.....propertyN:value;'
+element.style.cssText = 'property1:value;property2:value;.....propertyN:value;' 
 
 /*==========================================================================
 ********** [4] HOW TO COMPLETELY CHANGE INNER HTML OF AN ELEMENT ***********
