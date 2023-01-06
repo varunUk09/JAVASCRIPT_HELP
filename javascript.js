@@ -12,7 +12,7 @@ window.location.href = "path"
 /*====================================================================
 ********** [3] ASSIGN MULTIPLE CSS PROPERTIES TO AN ELEMENT ***********
 ======================================================================*/
-element.style.cssText = 'property1:value;property2:value;.....propertyN:value;' 
+element.style.cssText = 'property1:value;property2:value;.....propertyN:value;'
 
 /*==========================================================================
 ********** [4] HOW TO COMPLETELY CHANGE INNER HTML OF AN ELEMENT ***********
@@ -23,8 +23,8 @@ element.innerHTML = "new html"
 /*==========================================================================
 ********** [5] HOW TO PREVENT TO SUBMITTING A FORM AS NORML ****************
 ===========================================================================*/
-formElement.addEventListener('submit',function(e){ //e called event
-	e.preventDefault;
+formElement.addEventListener('submit', function(e) { //e called event
+    e.preventDefault;
 });
 
 
@@ -37,18 +37,20 @@ element.focus();
 /*=================================================================================
 ********** [7] HOW TO ACCESS LABEL OF AN INPUT FIELD ******************************
 ==================================================================================*/
-input_element.labels /* == >this will give you a node list of all labels associated to that input element
+input_element.labels
+/* == >this will give you a node list of all labels associated to that input element
 
 u can use array indexing to access input label
-for example*/ input_element.labels[0] /*will return u the very first label*/
+for example*/
+input_element.labels[0] /*will return u the very first label*/
 
 /*=================================================================================
 ********** [8] HOW TO SCROLL TO AN ELEMENT ****************************************
 ==================================================================================*/
 window.scrollTo({
-	top:value //(px value without px in interger form),
-	behaviour:"smooth",
-	left:value //(px value without px in integer form)(default is 0)
+    top: value //(px value without px in interger form),
+    behaviour: "smooth",
+    left: value //(px value without px in integer form)(default is 0)
 })
 
 // learn more about it in mdn docs : https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
@@ -60,26 +62,28 @@ window.scrollTo({
 let xhr = new XMLHttpRequest;
 // create a xhr object and after successful response
 
-/*use*/ let html = xhr.responseTxt;
+/*use*/
+let html = xhr.responseTxt;
 
 let ele = document.createElement("div");
 ele.innerHTML = html;
 
-/*now use*/ ele.querySelector("selctor of element inside of ele") /*in order to making changes*/
+/*now use*/
+ele.querySelector("selctor of element inside of ele") /*in order to making changes*/
 
 /*==================================================================================
 ********** [10] HOW TO DETECT PAGE BOTTOM *******************************************
 ===================================================================================*/
-window.addEventListener("scroll",(e)=>{
-	if(window.scrollY + window.innerHeight + 25 >= document.body.offsetHeight){
-		console.log("hurry we are at the bottom of the page!!! :)");
-	}
+window.addEventListener("scroll", (e) => {
+    if (window.scrollY + window.innerHeight + 25 >= document.body.offsetHeight) {
+        console.log("hurry we are at the bottom of the page!!! :)");
+    }
 });
 
 /*=====================================================================================================
 ********** [11] HOW TO SCROLL TO AN ELEMENT WITHOUT POSITION *******************************************
 ======================================================================================================*/
-element.scrollIntoView({behaviour:"smooth"});
+element.scrollIntoView({ behaviour: "smooth" });
 
 // it will navigate you to the top of the element in the document
 
@@ -91,11 +95,11 @@ element.scrollIntoView({behaviour:"smooth"});
 // it is url encode for example spaces are converted into %20
 
 // so what we will do 
- let egSearch = decodeURIComponent(window.location.href);
+let egSearch = decodeURIComponent(window.location.href);
 
- // now egSearch  is https://www.tcsworldtravel.com/trip-finder?destination=Africa&date=January&tripType=Private Custom Travel
+// now egSearch  is https://www.tcsworldtravel.com/trip-finder?destination=Africa&date=January&tripType=Private Custom Travel
 
- // %20 removed and if other such url component it will decode them as well
+// %20 removed and if other such url component it will decode them as well
 
 /*=====================================================================================================
 ******************* [13] HOW TO SEARCH ELEMENT BASED ON THE TEXT INSIDE OF IT *************************
@@ -119,8 +123,16 @@ egQueryParams.forEach(param => {
 });
 
 
+/*=====================================================================================================
+******************************** [14] SEARCHING ELEMENT BY TEXT INSIDE OF IT **************************************
+======================================================================================================*/
 
+function contains(selector, text) {
+    var elements = document.querySelectorAll(selector);
+    return [].filter.call(elements, function(element) {
+        return RegExp(text).test(element.textContent);
+    });
+}
 
-
-
-
+// example
+// contains("p","hellow world") output [collection of all elements]
