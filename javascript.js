@@ -127,12 +127,15 @@ egQueryParams.forEach(param => {
 ******************************** [14] SEARCHING ELEMENT BY TEXT INSIDE OF IT **************************************
 ======================================================================================================*/
 
+// searching element by text inside of it
 function contains(selector, text) {
     var elements = document.querySelectorAll(selector);
     return [].filter.call(elements, function(element) {
-        return RegExp(text).test(element.textContent);
+        return RegExp(text.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ')).test(element.innerText.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' '));
     });
 }
 
 // example
 // contains("p","hellow world") output [collection of all elements]
+// [new] it will remove consequitive space between texts then check
+// [new] it will remove special characters from texts then check
