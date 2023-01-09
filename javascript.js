@@ -131,7 +131,8 @@ egQueryParams.forEach(param => {
 function contains(selector, text) {
     var elements = document.querySelectorAll(selector);
     return [].filter.call(elements, function(element) {
-        return RegExp(text.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ')).test(element.innerText.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' '));
+        // removing special characters and consequitive spaces before check
+        return text.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase() === element.innerText.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase();
     });
 }
 
