@@ -142,6 +142,8 @@ function contains(selector, text) {
 // [new] it will remove special characters from texts then check
 
 
+// get cookie
+
 var getCookie = function(name) {
     var nameEQ = name + '=';
     var ca = document.cookie.split(';');
@@ -152,6 +154,9 @@ var getCookie = function(name) {
     }
     return null;
 };
+
+
+// set cookie
 
 var setCookie = function(name, value, days) {
     var expires = '';
@@ -165,6 +170,7 @@ var setCookie = function(name, value, days) {
 
 
 // count down timer
+// count down timer
 function timer(timerObj) {
     // end date here
     const endDate = new Date("1/14/2023 8:30:00 AM");
@@ -173,8 +179,9 @@ function timer(timerObj) {
         const currentDate = new Date();
         if (currentDate >= endDate) {
             clearInterval(timerInterval);
-            waitForElement(".eg-promo-container", function() {
-                document.querySelector(".eg-promo-container").remove();
+            // removing timer if it meets the future date
+            waitForElement(".eg-timer-wrapper", function() {
+                document.querySelector(".eg-timer-wrapper").remove();
             }, 50, 15000);
 
             return;
@@ -187,15 +194,17 @@ function timer(timerObj) {
         let secsLeft = Math.floor((diff % (1000 * 60)) / 1000);
 
         // update the timer values
-        timerObj.dys.textContent = daysLeft;
-        timerObj.hours.textContent = hoursLeft;
-        timerObj.mins.textContent = minsLeft;
-        timerObj.secs.textContent = secsLeft;
+        timerObj.dys.textContent = (daysLeft <= 0) ? "0" : (daysLeft < 10) ? `0${daysLeft}` : daysLeft;
+        timerObj.hours.textContent = (hoursLeft <= 0) ? "0" : (hoursLeft < 10) ? `0${hoursLeft}` : hoursLeft;
+        timerObj.mins.textContent = (minsLeft <= 0) ? "0" : (minsLeft < 10) ? `0${minsLeft}` : minsLeft;
+        timerObj.secs.textContent = (secsLeft <= 0) ? "0" : (secsLeft < 10) ? `0${secsLeft}` : secsLeft;
 
-        if (!document.querySelector(".eg-timer")) {
-            document.querySelector(".eg-promo-wrapper").insertAdjacentElement("beforeend", egTimerEle);
-            document.body.style.cssText = `margin-top:${document.querySelector(".nav-promo").offsetHeight}px !important`;
-        }
+
 
     }, 1000);
 }
+
+// youtube thumbnail fetch
+let default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
+let hd = 'https://img.youtube.com/vi/DOyWP3GPWJ8/maxresdefault.jpg'
+let mobileFriendly = 'https://img.youtube.com/vi/DOyWP3GPWJ8/mqdefault.jpg'
