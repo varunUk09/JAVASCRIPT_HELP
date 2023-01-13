@@ -143,22 +143,59 @@ function contains(selector, text) {
 
 
 var getCookie = function(name) {
-            var nameEQ = name + '=';
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        };
+    var nameEQ = name + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+};
 
-        var setCookie = function(name, value, days) {
-            var expires = '';
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-                expires = '; expires=' + date.toUTCString();
-            }
-            document.cookie = name + '=' + (value || '') + expires + '; path=/';
-        };
+var setCookie = function(name, value, days) {
+    var expires = '';
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = '; expires=' + date.toUTCString();
+    }
+    document.cookie = name + '=' + (value || '') + expires + '; path=/';
+};
+
+
+// count down timer
+function timer(timerObj) {
+    // end date here
+    const endDate = new Date("1/14/2023 8:30:00 AM");
+
+    timerInterval = setInterval(() => {
+        const currentDate = new Date();
+        if (currentDate >= endDate) {
+            clearInterval(timerInterval);
+            waitForElement(".eg-promo-container", function() {
+                document.querySelector(".eg-promo-container").remove();
+            }, 50, 15000);
+
+            return;
+        }
+        // calculate time remaining
+        const diff = endDate - currentDate;
+        const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hoursLeft = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minsLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let secsLeft = Math.floor((diff % (1000 * 60)) / 1000);
+
+        // update the timer values
+        timerObj.dys.textContent = daysLeft;
+        timerObj.hours.textContent = hoursLeft;
+        timerObj.mins.textContent = minsLeft;
+        timerObj.secs.textContent = secsLeft;
+
+        if (!document.querySelector(".eg-timer")) {
+            document.querySelector(".eg-promo-wrapper").insertAdjacentElement("beforeend", egTimerEle);
+            document.body.style.cssText = `margin-top:${document.querySelector(".nav-promo").offsetHeight}px !important`;
+        }
+
+    }, 1000);
+}
