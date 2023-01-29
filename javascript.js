@@ -208,3 +208,4 @@ function timer(timerObj) {
 let default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
 let hd = 'https://img.youtube.com/vi/DOyWP3GPWJ8/maxresdefault.jpg'
 let mobileFriendly = 'https://img.youtube.com/vi/DOyWP3GPWJ8/mqdefault.jpg'
+
