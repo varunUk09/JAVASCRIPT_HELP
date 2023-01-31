@@ -141,8 +141,9 @@ function contains(selector, text) {
 // [new] it will remove consequitive space between texts then check
 // [new] it will remove special characters from texts then check
 
-
-// get cookie
+/*=====================================================================================================
+******************************** [15] GET COOKIE **************************************
+======================================================================================================*/
 
 var getCookie = function(name) {
     var nameEQ = name + '=';
@@ -155,8 +156,10 @@ var getCookie = function(name) {
     return null;
 };
 
+/*=====================================================================================================
+******************************** [16] SET COOKIE **************************************
+======================================================================================================*/
 
-// set cookie
 
 var setCookie = function(name, value, days) {
     var expires = '';
@@ -169,8 +172,10 @@ var setCookie = function(name, value, days) {
 };
 
 
-// count down timer
-// count down timer
+/*=====================================================================================================
+******************************** [17] COUNT DOWN TIMER **************************************
+======================================================================================================*/
+
 function timer(timerObj) {
     // end date here
     const endDate = new Date("1/14/2023 8:30:00 AM");
@@ -204,8 +209,33 @@ function timer(timerObj) {
     }, 1000);
 }
 
+/*=====================================================================================================
+******************************** [18] YOUTUBE THUMBNAIL FETCH **************************************
+======================================================================================================*/
 // youtube thumbnail fetch
-let default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
+let
+default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
 let hd = 'https://img.youtube.com/vi/DOyWP3GPWJ8/maxresdefault.jpg'
 let mobileFriendly = 'https://img.youtube.com/vi/DOyWP3GPWJ8/mqdefault.jpg'
 
+
+/*=====================================================================================================
+******************************** [19] TRAVERSING DOM UP TO FIND ELE **************************************
+======================================================================================================*/
+
+// TRAVERSING DOM UP TO FIND ELE
+var closestByClass = function(el, clazz) {
+    // Traverse the DOM up with a while loop
+    while (!el.classList.contains(clazz)) {
+        // Increment the loop to the parent node
+        el = el.parentNode
+        if (!el) {
+            return null
+        }
+    }
+
+    // At this point, the while loop has stopped and `el` represents the element
+    // that has the class you specified in the second parameter of the function
+    // `clazz`
+    return el
+}
