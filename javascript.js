@@ -359,3 +359,37 @@ function getPDPData(url) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
+
+
+/*=====================================================================================================
+******************************** [24] BEST WAY TO DO TASK WHEN PAGE SCROLL **************************************
+======================================================================================================*/
+
+
+let lastScrollTop = 0;
+window.addEventListener("scroll", function() {
+    var st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st < lastScrollTop) {
+        document.querySelector(".filter-nav").classList.add("filter-nav_fixed");
+    } else if (st > lastScrollTop) {
+        document.querySelector(".filter-nav").classList.remove("filter-nav_fixed");
+    }
+
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}, false);
+
+/*This code listens for the "scroll" event on the window object and adds an event listener function to it. The function does the following:
+
+It retrieves the current vertical scroll position using window.pageYOffset or document.documentElement.scrollTop.
+
+It checks if the current scroll position is less than the last scroll position stored in lastScrollTop. If it is, it adds the class "filter-nav_fixed" to the element with class "filter-nav" using classList.add().
+
+If the current scroll position is greater than lastScrollTop, it removes the class "filter-nav_fixed" using classList.remove().
+
+Finally, lastScrollTop is updated to be either 0 or the current scroll position, depending on whether the scroll position is non-positive or positive, respectively.
+
+The result of this code is that whenever the user scrolls the page, the class "filter-nav_fixed" is added or removed from the "filter-nav" element depending on the direction of the scroll. This allows for the implementation of a fixed header effect, where the header remains fixed at the top of the screen when the user scrolls down the page.
+*/
+
+
+
