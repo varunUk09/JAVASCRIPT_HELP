@@ -299,3 +299,63 @@ function showList() {
 function matchQuery(keyWord, query) {
     return (keyWord.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase().indexOf(query.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase()) != -1);
 }
+
+
+/*=====================================================================================================
+******************************** [22] DETECT FETCH API **************************************
+======================================================================================================*/
+
+// DETECT FETCH API
+
+function checkAjax() {
+    const originalFetch = window.fetch;
+    window.fetch = function(input, init) {
+        if (input.url) {
+            if (input.url.indexOf('/GetProducts') !== -1) {
+                setTimeout(() => {
+                    if (document.body.classList.contains("eg-list-view")) {
+                        moveCta();
+                    }
+                    getData();
+                }, 2000);
+            }
+        }
+        return originalFetch(input, init);
+    };
+}
+
+
+/*=====================================================================================================
+******************************** [23] YOU CAN MAKE MULTIPLE REQUESTS WITHOUT WAITING FOR ANYONE **************************************
+======================================================================================================*/
+
+document.querySelectorAll("html body #coveo-product-list .c-c-pl_products .c-c-pl_results_container .c-c-pl_results_list .c-c-product-card").forEach(item => {
+    if (!item.querySelector(".eg-para")) {
+        let url = item.querySelector(".c-c-product-card_img-wrapper") && item.querySelector(".c-c-product-card_img-wrapper").href;
+        getPDPData(url);
+    }
+});
+
+function getPDPData(url) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var data = this.responseText;
+            // console.log(this.responseURL, document.querySelector('li.c-c-product-card a[href="' + this.responseURL + '"]'));
+            var ele = document.createElement("div");
+            ele.innerHTML = data;
+            var egDesEle = ele.querySelector(".c-product-description");
+            // checking if element exists or not
+            if (egDesEle) {
+                let egItem = document.querySelector('li.c-c-product-card a[href="' + this.responseURL + '"]').closest('li.c-c-product-card');
+                if (!egItem.querySelector(".eg-para")) {
+                    egItem.querySelector(".c-c-product-card_price").insertAdjacentHTML("beforebegin", `<p class="eg-para">${egDesEle.innerText}</p>`);
+                }
+            } else {
+                getPDPData(url);
+            }
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
