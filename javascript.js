@@ -392,4 +392,17 @@ The result of this code is that whenever the user scrolls the page, the class "f
 */
 
 
+/*============================= [25] DETECT OUTSIDE CLICK OF AN ELEMENT ======================
+ ***********************************************************************************************/
+// DETECT OUTSIDE CLICK
+function detectClickOustside(element) {
+    // Add a click event listener to the document object
+    document.addEventListener('click', function(event) {
 
+        // Check if the event target is the element or one of its children
+        if (event.target !== element && !element.contains(event.target)) {
+            // The click occurred outside of the element, do something...
+            console.log('Clicked outside of the element!');
+        }
+    });
+}
