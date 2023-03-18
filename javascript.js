@@ -455,3 +455,70 @@ function download(data, filename, type) {
     }
 }
 download(JSON.stringify(egLogos), 'filename', 'filetype');
+
+/*======================== [27] FUNCTION WHICH WILL CHECK OBJECT LINKS ARE BROKEN OR NOT ================================
+ ************************************************************************************************/
+async function checkLinks(json) {
+  let result = {};
+  for (const [key, value] of Object.entries(json)) {
+    try {
+      const response = await fetch(value);
+      // result[key] = response.ok;
+    } catch (error) {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
+const json = {
+  "ABB": "https://octostatic.com/nextopart/static/manufacturer-logos/ABB.png",
+  "Amphenol": "https://octostatic.com/nextopart/static/manufacturer-logos/Amphenol.png",
+  "Analog Services": "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png",
+  "Biostar": "https://octostatic.com/nextopart/static/manufacturer-logos/Biostar.png",
+  "Bose": "https://octostatic.com/nextopart/static/manufacturer-logos/Bose.png",
+  "Bourns": "https://octostatic.com/nextopart/static/manufacturer-logos/Bourns%20.png",
+  "Briggs Stratton": "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
+};
+
+let
+
+checkLinks(json).then(result => console.log(result));
+
+// OUTPUT
+{
+  "ABB": true,
+  "Amphenol": true,
+  "Analog Services": true,
+  "Biostar": true,
+  "Bose": true,
+  "Bourns": true,
+  "Briggs Stratton": true
+}
+
+/*======================== [28] FUNCTION WHICH TAKES A NAME AND RETURN VALUE OF CORRESPONDING
+KEY IF ANY KEY HAS THIS NAME INCLUDE ================================
+ ************************************************************************************************/
+function findByName(name) {
+  for (const [key, value] of Object.entries(names)) {
+    if (key.toLowerCase().includes(name.toLowerCase())) {
+      return value;
+    }
+  }
+  return null;
+}
+
+
+const names = {
+  "ABB": "https://octostatic.com/nextopart/static/manufacturer-logos/ABB.png",
+  "Amphenol": "https://octostatic.com/nextopart/static/manufacturer-logos/Amphenol.png",
+  "Analog Services": "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png",
+  "Biostar": "https://octostatic.com/nextopart/static/manufacturer-logos/Biostar.png",
+  "Bose": "https://octostatic.com/nextopart/static/manufacturer-logos/Bose.png",
+  "Bourns": "https://octostatic.com/nextopart/static/manufacturer-logos/Bourns%20.png",
+  "Briggs Stratton": "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
+};
+
+console.log(findByName("Brigss")); // "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
+console.log(findByName("Analog")); // "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png"
+console.log(findByName("Samsung")); // null
