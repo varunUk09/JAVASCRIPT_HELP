@@ -1,151 +1,73 @@
-/*========================================
-********** [1] GET CURRENT PAGE URL **********
-==========================================*/
+//[1] Get current page URL: 
 window.location.href
 
-/*========================================
-********** [2] REDIRECT TO URL ***********
-==========================================*/
+
+//[2]Redirect to URL: 
 window.location.href = "path"
 
-
-/*====================================================================
-********** [3] ASSIGN MULTIPLE CSS PROPERTIES TO AN ELEMENT ***********
-======================================================================*/
+//[3]Assign multiple CSS properties to an element:
 element.style.cssText = 'property1:value;property2:value;.....propertyN:value;'
 
-/*==========================================================================
-********** [4] HOW TO COMPLETELY CHANGE INNER HTML OF AN ELEMENT ***********
-===========================================================================*/
+//[4]Completely change inner HTML of an element: 
 element.innerHTML = "new html"
 
-
-/*==========================================================================
-********** [5] HOW TO PREVENT TO SUBMITTING A FORM AS NORML ****************
-===========================================================================*/
-formElement.addEventListener('submit', function(e) { //e called event
-    e.preventDefault;
+//[5]Prevent form submission: 
+formElement.addEventListener('submit', function (e) {
+    e.preventDefault();
 });
 
-
-/*==========================================================================
-********** [6] HOW TO SET FOCUS ON AN ELEMENT ******************************
-===========================================================================*/
+//[6]Set focus on an element: 
 element.focus();
 
+//[7]Access label of an input field:
+input_element.labels[0]
 
-/*=================================================================================
-********** [7] HOW TO ACCESS LABEL OF AN INPUT FIELD ******************************
-==================================================================================*/
-input_element.labels
-/* == >this will give you a node list of all labels associated to that input element
-
-u can use array indexing to access input label
-for example*/
-input_element.labels[0] /*will return u the very first label*/
-
-/*=================================================================================
-********** [8] HOW TO SCROLL TO AN ELEMENT ****************************************
-==================================================================================*/
+//[8]Scroll to an element:
 window.scrollTo({
-    top: value //(px value without px in interger form),
+    top: value,
     behaviour: "smooth",
-    left: value //(px value without px in integer form)(default is 0)
-})
+    left: value
+});
 
-// learn more about it in mdn docs : https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
-
-
-/*==================================================================================
-********** [9] HOW TO GET HTML FROM THE URL ****************************************
-===================================================================================*/
+//[9]Get HTML from a URL:
 let xhr = new XMLHttpRequest;
-// create a xhr object and after successful response
-
-/*use*/
 let html = xhr.responseTxt;
-
 let ele = document.createElement("div");
 ele.innerHTML = html;
+ele.querySelector("selector of element inside of ele")
 
-/*now use*/
-ele.querySelector("selctor of element inside of ele") /*in order to making changes*/
-
-/*==================================================================================
-********** [10] HOW TO DETECT PAGE BOTTOM *******************************************
-===================================================================================*/
+//[10]Detect page bottom: 
 window.addEventListener("scroll", (e) => {
     if (window.scrollY + window.innerHeight + 25 >= document.body.offsetHeight) {
         console.log("hurry we are at the bottom of the page!!! :)");
     }
 });
 
-/*=====================================================================================================
-********** [11] HOW TO SCROLL TO AN ELEMENT WITHOUT POSITION *******************************************
-======================================================================================================*/
-element.scrollIntoView({ behaviour: "smooth" });
-
-// it will navigate you to the top of the element in the document
-
-/*=====================================================================================================
-************************************* [12] HOW TO DECODE URL *******************************************
-======================================================================================================*/
-//Like we have url : https://www.tcsworldtravel.com/trip-finder?destination=Africa&date=January&tripType=Private%20Custom%20Travel
-
-// it is url encode for example spaces are converted into %20
-
-// so what we will do 
-let egSearch = decodeURIComponent(window.location.href);
-
-// now egSearch  is https://www.tcsworldtravel.com/trip-finder?destination=Africa&date=January&tripType=Private Custom Travel
-
-// %20 removed and if other such url component it will decode them as well
-
-/*=====================================================================================================
-******************* [13] HOW TO SEARCH ELEMENT BASED ON THE TEXT INSIDE OF IT *************************
-======================================================================================================*/
-var $ = window.jQuery;
-let ele = $(document).find(`label:contains('Hello world')`).first();
-
-// it will give you the first label in the document which has hello world text inside of it
-
-/*=====================================================================================================
-******************************** [14] HOW TO EXTRACT SEARCH QUERY **************************************
-======================================================================================================*/
-let egSearch = decodeURIComponent(window.location.href);
-let egQueryParams = egSearch.split("?").pop().split("&"); // modify this line based on the url
-let egSearchQuery = {};
-
-egQueryParams.forEach(param => {
-    let name = param.split("=").shift();
-    let value = param.split("=").pop();
-    egSearchQuery[name] = value;
+//[11]Scroll to an element without position:
+element.scrollIntoView({
+    behaviour: "smooth"
 });
 
+//[12]Decode URL:
+let decodedURL = decodeURIComponent(window.location.href);
 
-/*=====================================================================================================
-******************************** [14] SEARCHING ELEMENT BY TEXT INSIDE OF IT **************************************
-======================================================================================================*/
-
-// searching element by text inside of it
+//[13]Search element based on the text inside of it: 
 function contains(selector, text) {
     var elements = document.querySelectorAll(selector);
-    return [].filter.call(elements, function(element) {
-        // removing special characters and consequitive spaces before check
+    return [].filter.call(elements, function (element) {
         return text.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase() === element.innerText.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase();
     });
 }
 
-// example
-// contains("p","hellow world") output [collection of all elements]
-// [new] it will remove consequitive space between texts then check
-// [new] it will remove special characters from texts then check
+//[13]Extract search query:
+let searchParams = new URLSearchParams(window.location.search);
+let searchQuery = {};
+for (const [key, value] of searchParams.entries()) {
+    searchQuery[key] = value;
+}
 
-/*=====================================================================================================
-******************************** [15] GET COOKIE **************************************
-======================================================================================================*/
-
-var getCookie = function(name) {
+//[14]Get cookie: 
+var getCookie = function (name) {
     var nameEQ = name + '=';
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
@@ -156,26 +78,18 @@ var getCookie = function(name) {
     return null;
 };
 
-/*=====================================================================================================
-******************************** [16] SET COOKIE **************************************
-======================================================================================================*/
-
-
-var setCookie = function(name, value, days) {
+//[15]Set cookie: 
+var setCookie = function (name, value, days) {
     var expires = '';
     if (days) {
         var date = new Date();
-        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = '; expires=' + date.toUTCString();
     }
-    document.cookie = name + '=' + (value || '') + expires + '; path=/';
+    document.cookie = name + '=' + value + expires + '; path=/';
 };
 
-
-/*=====================================================================================================
-******************************** [17] COUNT DOWN TIMER **************************************
-======================================================================================================*/
-
+// [17] COUNT DOWN TIMER
 function timer(timerObj) {
     // end date here
     const endDate = new Date("1/14/2023 8:30:00 AM");
@@ -185,7 +99,7 @@ function timer(timerObj) {
         if (currentDate >= endDate) {
             clearInterval(timerInterval);
             // removing timer if it meets the future date
-            waitForElement(".eg-timer-wrapper", function() {
+            waitForElement(".eg-timer-wrapper", function () {
                 document.querySelector(".eg-timer-wrapper").remove();
             }, 50, 15000);
 
@@ -209,22 +123,15 @@ function timer(timerObj) {
     }, 1000);
 }
 
-/*=====================================================================================================
-******************************** [18] YOUTUBE THUMBNAIL FETCH **************************************
-======================================================================================================*/
-// youtube thumbnail fetch
+// [18] YOUTUBE THUMBNAIL FETCH
 let
 default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
 let hd = 'https://img.youtube.com/vi/DOyWP3GPWJ8/maxresdefault.jpg'
 let mobileFriendly = 'https://img.youtube.com/vi/DOyWP3GPWJ8/mqdefault.jpg'
 
 
-/*=====================================================================================================
-******************************** [19] TRAVERSING DOM UP TO FIND ELE **************************************
-======================================================================================================*/
-
-// TRAVERSING DOM UP TO FIND ELE
-var closestByClass = function(el, clazz) {
+// [19] This function traverses up the DOM from a given element to find the closest parent element with a specified class.
+var closestByClass = function (el, clazz) {
     // Traverse the DOM up with a while loop
     while (!el.classList.contains(clazz)) {
         // Increment the loop to the parent node
@@ -241,9 +148,8 @@ var closestByClass = function(el, clazz) {
 }
 
 
-/*=====================================================================================================
-******************************** [20] JAVASCRIPT AUTOCOMPLETE **************************************
-======================================================================================================*/
+// [20] This code adds an event listener to an input field that filters through an array of products and displays matching items in a suggestion list. The suggestion list is updated dynamically as the user types into the input field.
+// javascript autocomplete
 let egItems = [{
         "name": "Classic Whip SPF 30",
         "link": "https://www.vacation.inc/products/sun-screen",
@@ -277,7 +183,7 @@ let egItems = [{
 ]
 
 function showList() {
-    document.querySelector("#egSearch").addEventListener("input", function() {
+    document.querySelector("#egSearch").addEventListener("input", function () {
         let query = this.value.toUpperCase();
         let egShowItemsHtml = '';
         egItems.forEach(item => {
@@ -290,26 +196,23 @@ function showList() {
     });
 }
 
-/*=====================================================================================================
-******************************** [21] JAVASCRIPT BEST WAY TO CHECK OR MATCH **************************************
-======================================================================================================*/
-
-// THIS FUNCTION WILL MATCH QUERY TO MAPPING AND ALSO IT WILL MATCH BY REMOVING SPECIAL CHARS AND CONSEQUTIVE SPACES
+/*
+[21] This JavaScript function matches a query string to a mapping string by removing special characters and consecutive spaces, converting both strings to uppercase, and checking if the query string is present in the mapping string. It returns a Boolean value indicating whether the match was successful or not.
+*/
 
 function matchQuery(keyWord, query) {
     return (keyWord.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase().indexOf(query.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase()) != -1);
 }
 
 
-/*=====================================================================================================
-******************************** [22] DETECT FETCH API **************************************
-======================================================================================================*/
-
+/*
+[22] This code detects when the Fetch API is used and modifies its behavior. Specifically, it sets a timeout and executes some functions when a specific URL is requested. 
+ */
 // DETECT FETCH API
 
 function checkAjax() {
     const originalFetch = window.fetch;
-    window.fetch = function(input, init) {
+    window.fetch = function (input, init) {
         if (input.url) {
             if (input.url.indexOf('/GetProducts') !== -1) {
                 setTimeout(() => {
@@ -324,11 +227,10 @@ function checkAjax() {
     };
 }
 
-
-/*=====================================================================================================
-******************************** [23] YOU CAN MAKE MULTIPLE REQUESTS WITHOUT WAITING FOR ANYONE **************************************
-======================================================================================================*/
-
+// [23] Make multiple requests without waiting.
+/*
+ This code allows for the retrieval of data from multiple URLs without waiting for any of the requests to complete before moving on to the next one. It does this by looping through all the desired items on the page and making a separate XMLHttpRequest for each one. Once a request has been made, the function checks whether the desired data exists on the page, and if it does, it adds it to the appropriate element. If the data is not present, the function calls itself recursively until the data is found. This approach enables faster retrieval of data from multiple sources and improves the overall performance of the application.
+*/
 document.querySelectorAll("html body #coveo-product-list .c-c-pl_products .c-c-pl_results_container .c-c-pl_results_list .c-c-product-card").forEach(item => {
     if (!item.querySelector(".eg-para")) {
         let url = item.querySelector(".c-c-product-card_img-wrapper") && item.querySelector(".c-c-product-card_img-wrapper").href;
@@ -338,7 +240,7 @@ document.querySelectorAll("html body #coveo-product-list .c-c-pl_products .c-c-p
 
 function getPDPData(url) {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var data = this.responseText;
             // console.log(this.responseURL, document.querySelector('li.c-c-product-card a[href="' + this.responseURL + '"]'));
@@ -361,23 +263,7 @@ function getPDPData(url) {
 }
 
 
-/*=====================================================================================================
-******************************** [24] BEST WAY TO DO TASK WHEN PAGE SCROLL **************************************
-======================================================================================================*/
-
-
-let lastScrollTop = 0;
-window.addEventListener("scroll", function() {
-    var st = window.pageYOffset || document.documentElement.scrollTop;
-    if (st < lastScrollTop) {
-        document.querySelector(".filter-nav").classList.add("filter-nav_fixed");
-    } else if (st > lastScrollTop) {
-        document.querySelector(".filter-nav").classList.remove("filter-nav_fixed");
-    }
-
-    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-}, false);
-
+// [24] BEST WAY TO DO TASK WHEN PAGE SCROLL
 /*This code listens for the "scroll" event on the window object and adds an event listener function to it. The function does the following:
 
 It retrieves the current vertical scroll position using window.pageYOffset or document.documentElement.scrollTop.
@@ -390,14 +276,26 @@ Finally, lastScrollTop is updated to be either 0 or the current scroll position,
 
 The result of this code is that whenever the user scrolls the page, the class "filter-nav_fixed" is added or removed from the "filter-nav" element depending on the direction of the scroll. This allows for the implementation of a fixed header effect, where the header remains fixed at the top of the screen when the user scrolls down the page.
 */
+let lastScrollTop = 0;
+window.addEventListener("scroll", function () {
+    var st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st < lastScrollTop) {
+        document.querySelector(".filter-nav").classList.add("filter-nav_fixed");
+    } else if (st > lastScrollTop) {
+        document.querySelector(".filter-nav").classList.remove("filter-nav_fixed");
+    }
+
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}, false);
 
 
-/*============================= [25] DETECT OUTSIDE CLICK OF AN ELEMENT ======================
- ***********************************************************************************************/
-// DETECT OUTSIDE CLICK
+// [25] DETECT OUTSIDE CLICK OF AN ELEMENT
+/*
+This function detects clicks outside of a specified element by attaching a mousedown event listener to the body of the document. If the event target is not the specified element or one of its children, it means that the click occurred outside of the element, and the function removes a specified class from the element and from the body of the document. This is useful for closing popups or modals when a user clicks outside of them.
+*/
 function detectClickOutside(element) {
     // Attach a click event listener to a parent element that exists in the DOM
-    document.body.addEventListener('mousedown', function(event) {
+    document.body.addEventListener('mousedown', function (event) {
         // Check if the event target is the element or one of its children
         if (event.target !== element && !element.contains(event.target)) {
             // The click occurred outside of the element, do something...
@@ -408,17 +306,19 @@ function detectClickOutside(element) {
     });
 }
 
-/*======================== [26] MUTATION OBSERVER BASIC SNIPPET ================================
- ************************************************************************************************/
-
+// [26] MUTATION OBSERVER BASIC SNIPPET
 // Select the node that will be observed for mutations
 const targetNode = document.body;
 
 // Options for the observer (which mutations to observe)
-const config = { attributes: true, childList: true, subtree: true };
+const config = {
+    attributes: true,
+    childList: true,
+    subtree: true
+};
 
 // Callback function to execute when mutations are observed
-const callback = function(mutationsList, observer) {
+const callback = function (mutationsList, observer) {
     for (const mutation of mutationsList) {
         if (mutation.type === 'childList') {
             console.log('A child node has been added or removed.');
@@ -434,89 +334,98 @@ const observer = new MutationObserver(callback);
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
 
-/*======================== [26] DOWNLOAD DATA AS A TXT FILE ================================
- ************************************************************************************************/
-// Function to download data to a file
+//[27]This code defines a function called download that takes in data, filename, and type as parameters and downloads the data as a file.
+/*
+This code defines a function called download that takes three parameters: data, filename, and type. It creates a new Blob object using the data and type parameters and then checks if the browser is Internet Explorer 10 or above. If it is, it uses the msSaveOrOpenBlob method to download the file. Otherwise, it creates a new a element and sets its href attribute to a URL created using URL.createObjectURL(). It sets the download attribute to the filename parameter and appends the a element to the document body. Finally, it simulates a click on the a element to download the file and removes the a element and the URL object after the download is complete.
+
+To use this function, you can call it with the data you want to download as the first parameter, the desired filename as the second parameter, and the file type as the third parameter. For example, download(JSON.stringify(egLogos), 'filename', 'filetype'); would download the data in the egLogos variable as a file with the name filename and the specified file type.
+*/
 function download(data, filename, type) {
-    var file = new Blob([data], {type: type});
+    var file = new Blob([data], {
+        type: type
+    });
     if (window.navigator.msSaveOrOpenBlob) // IE10+
         window.navigator.msSaveOrOpenBlob(file, filename);
     else { // Others
         var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
+            url = URL.createObjectURL(file);
         a.href = url;
         a.download = filename;
         document.body.appendChild(a);
         a.click();
-        setTimeout(function() {
+        setTimeout(function () {
             document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        }, 0); 
+            window.URL.revokeObjectURL(url);
+        }, 0);
     }
 }
 download(JSON.stringify(egLogos), 'filename', 'filetype');
 
-/*======================== [27] FUNCTION WHICH WILL CHECK OBJECT LINKS ARE BROKEN OR NOT ================================
- ************************************************************************************************/
+//[28]the checkLinks function checks if the links in the provided object are valid or broken, and returns an object containing the links and their status.
+/*
+ This code defines an asynchronous function checkLinks that accepts an object of links as its argument. The function iterates through the links and uses the fetch() method to check if each link is valid or not. The result is an object that contains the links and their status (true for valid, false for broken). The function returns this object as a Promise.
+*/
+
 async function checkLinks(json) {
-  let result = {};
-  for (const [key, value] of Object.entries(json)) {
-    try {
-      const response = await fetch(value);
-      // result[key] = response.ok;
-    } catch (error) {
-      result[key] = value;
+    let result = {};
+    for (const [key, value] of Object.entries(json)) {
+        try {
+            const response = await fetch(value);
+            // result[key] = response.ok;
+        } catch (error) {
+            result[key] = value;
+        }
     }
-  }
-  return result;
+    return result;
 }
 
 const json = {
-  "ABB": "https://octostatic.com/nextopart/static/manufacturer-logos/ABB.png",
-  "Amphenol": "https://octostatic.com/nextopart/static/manufacturer-logos/Amphenol.png",
-  "Analog Services": "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png",
-  "Biostar": "https://octostatic.com/nextopart/static/manufacturer-logos/Biostar.png",
-  "Bose": "https://octostatic.com/nextopart/static/manufacturer-logos/Bose.png",
-  "Bourns": "https://octostatic.com/nextopart/static/manufacturer-logos/Bourns%20.png",
-  "Briggs Stratton": "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
+    "ABB": "https://octostatic.com/nextopart/static/manufacturer-logos/ABB.png",
+    "Amphenol": "https://octostatic.com/nextopart/static/manufacturer-logos/Amphenol.png",
+    "Analog Services": "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png",
+    "Biostar": "https://octostatic.com/nextopart/static/manufacturer-logos/Biostar.png",
+    "Bose": "https://octostatic.com/nextopart/static/manufacturer-logos/Bose.png",
+    "Bourns": "https://octostatic.com/nextopart/static/manufacturer-logos/Bourns%20.png",
+    "Briggs Stratton": "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
 };
 
 let
 
-checkLinks(json).then(result => console.log(result));
+    checkLinks(json).then(result => console.log(result));
 
 // OUTPUT
 {
-  "ABB": true,
-  "Amphenol": true,
-  "Analog Services": true,
-  "Biostar": true,
-  "Bose": true,
-  "Bourns": true,
-  "Briggs Stratton": true
+    "ABB": true,
+    "Amphenol": true,
+    "Analog Services": true,
+    "Biostar": true,
+    "Bose": true,
+    "Bourns": true,
+    "Briggs Stratton": true
 }
 
-/*======================== [28] FUNCTION WHICH TAKES A NAME AND RETURN VALUE OF CORRESPONDING
-KEY IF ANY KEY HAS THIS NAME INCLUDE ================================
- ************************************************************************************************/
+// [29]A function that takes a name and returns the value of the corresponding key from an object if any key contains the name.
+/*
+ This code defines a function called findByName that takes a string argument and returns the corresponding value from the names object if the key contains the specified name. The names object contains key-value pairs, where the key is a string and the value is a URL to an image. The function uses a for loop to iterate over the keys of the names object and checks if the key contains the specified name using the includes() method. If a match is found, the function returns the corresponding value, otherwise it returns null. The console.log() statements demonstrate the usage of the function with sample input values.
+*/
 function findByName(name) {
-  for (const [key, value] of Object.entries(names)) {
-    if (key.toLowerCase().includes(name.toLowerCase())) {
-      return value;
+    for (const [key, value] of Object.entries(names)) {
+        if (key.toLowerCase().includes(name.toLowerCase())) {
+            return value;
+        }
     }
-  }
-  return null;
+    return null;
 }
 
 
 const names = {
-  "ABB": "https://octostatic.com/nextopart/static/manufacturer-logos/ABB.png",
-  "Amphenol": "https://octostatic.com/nextopart/static/manufacturer-logos/Amphenol.png",
-  "Analog Services": "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png",
-  "Biostar": "https://octostatic.com/nextopart/static/manufacturer-logos/Biostar.png",
-  "Bose": "https://octostatic.com/nextopart/static/manufacturer-logos/Bose.png",
-  "Bourns": "https://octostatic.com/nextopart/static/manufacturer-logos/Bourns%20.png",
-  "Briggs Stratton": "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
+    "ABB": "https://octostatic.com/nextopart/static/manufacturer-logos/ABB.png",
+    "Amphenol": "https://octostatic.com/nextopart/static/manufacturer-logos/Amphenol.png",
+    "Analog Services": "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png",
+    "Biostar": "https://octostatic.com/nextopart/static/manufacturer-logos/Biostar.png",
+    "Bose": "https://octostatic.com/nextopart/static/manufacturer-logos/Bose.png",
+    "Bourns": "https://octostatic.com/nextopart/static/manufacturer-logos/Bourns%20.png",
+    "Briggs Stratton": "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
 };
 
 console.log(findByName("Brigss")); // "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
