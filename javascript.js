@@ -488,9 +488,7 @@ const json = {
     "Briggs Stratton": "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
 };
 
-let
-
-    checkLinks(json).then(result => console.log(result));
+checkLinks(json).then(result => console.log(result));
 
 // OUTPUT
 {
