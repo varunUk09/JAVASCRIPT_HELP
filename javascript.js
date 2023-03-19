@@ -35,7 +35,7 @@ formElement.addEventListener('submit', function (e) {
 //[6]Set focus on an element: 
 element.focus();
 /* desc:
-  sets the focus to an HTML element, meaning that it selects the element and makes it ready to accept user input. It is often used to bring user attention to a specific element on a web page, such as a form input field.
+  This code sets the focus to an HTML element, meaning that it selects the element and makes it ready to accept user input. It is often used to bring user attention to a specific element on a web page, such as a form input field.
 */
 
 //[7]Access label of an input field:
@@ -51,7 +51,7 @@ window.scrollTo({
     left: value
 });
 /* desc:
-    scrolls the window to a specific position, with a smooth animation.
+    This code scrolls the window to a specific position, with a smooth animation.
 */
 
 //[9]Get HTML from a URL:
@@ -112,7 +112,7 @@ for (const [key, value] of searchParams.entries()) {
     searchQuery[key] = value;
 }
 /* desc:
- this code creates a new "URLSearchParams" object to extract and parse the query parameters from the URL of the current page. The "entries" method is used to iterate over all the query parameter key-value pairs in the object. For each pair, a new key-value pair is added to the "searchQuery" object, with the same key and value as in the URL parameters. The result is a JavaScript object that represents the search query parameters from the current URL, which can be used to access and manipulate the query parameters programmatically.
+ This code creates a new "URLSearchParams" object to extract and parse the query parameters from the URL of the current page. The "entries" method is used to iterate over all the query parameter key-value pairs in the object. For each pair, a new key-value pair is added to the "searchQuery" object, with the same key and value as in the URL parameters. The result is a JavaScript object that represents the search query parameters from the current URL, which can be used to access and manipulate the query parameters programmatically.
 */
 
 //[14]Get cookie: 
@@ -127,7 +127,7 @@ var getCookie = function (name) {
     return null;
 };
 /*desc:
- this code defines a JavaScript function called "getCookie" that takes a cookie name as a parameter and returns the corresponding cookie value. The function first constructs a string that consists of the cookie name followed by an equal sign (e.g. "cookieName="). It then splits the "document.cookie" string into individual cookies by splitting on semicolons, and iterates over each cookie to find the one that matches the provided cookie name. If the cookie is found, the function returns its value, which is everything after the equal sign. If the cookie is not found, the function returns null.
+ This code defines a JavaScript function called "getCookie" that takes a cookie name as a parameter and returns the corresponding cookie value. The function first constructs a string that consists of the cookie name followed by an equal sign (e.g. "cookieName="). It then splits the "document.cookie" string into individual cookies by splitting on semicolons, and iterates over each cookie to find the one that matches the provided cookie name. If the cookie is found, the function returns its value, which is everything after the equal sign. If the cookie is not found, the function returns null.
 */
 
 //[15]Set cookie: 
@@ -232,7 +232,7 @@ In other words, this function returns the closest ancestor element of the given 
 
 
 // [20] This code adds an event listener to an input field that filters through an array of products and displays matching items in a suggestion list. The suggestion list is updated dynamically as the user types into the input field.
-// javascript autocomplete
+// Javascript autocomplete
 let egItems = [{
         "name": "Classic Whip SPF 30",
         "link": "https://www.vacation.inc/products/sun-screen",
