@@ -1,26 +1,48 @@
 //[1] Get current page URL: 
 window.location.href
+/*desc:
+   window.location.href is a JavaScript statement that retrieves the current URL of the web page in the browser and assigns it to the href property of the location object. It does not require any HTML tags to function. 
+*/
 
 
 //[2]Redirect to URL: 
 window.location.href = "path"
 
+/* desc:
+    This code changes the current page's URL to the specified "path". It doesn't affect any HTML tags directly, but it could trigger a new page to be loaded if the specified path is a valid URL.
+*/
+
 //[3]Assign multiple CSS properties to an element:
 element.style.cssText = 'property1:value;property2:value;.....propertyN:value;'
+/* desc:
+    This code sets the CSS styles of an element to the specified values. It allows you to apply multiple CSS properties and their values to an element's inline style attribute at once.
+*/
 
 //[4]Completely change inner HTML of an element: 
 element.innerHTML = "new html"
+/* desc:
+ This code replaces the content of an HTML element with the specified HTML code. It allows you to change the text, images, and other HTML elements inside an element dynamically.
+*/
 
 //[5]Prevent form submission: 
 formElement.addEventListener('submit', function (e) {
     e.preventDefault();
 });
+/* desc:
+ This code  prevents the default action of a form submission. It allows you to handle the form data without actually submitting the form to the server.
+*/
 
 //[6]Set focus on an element: 
 element.focus();
+/* desc:
+  sets the focus to an HTML element, meaning that it selects the element and makes it ready to accept user input. It is often used to bring user attention to a specific element on a web page, such as a form input field.
+*/
 
 //[7]Access label of an input field:
 input_element.labels[0]
+/* desc:
+ This code returns the first <label> element associated with an <input> element. This can be useful for getting information about the label, such as its text content or its for attribute.
+*/
 
 //[8]Scroll to an element:
 window.scrollTo({
@@ -28,28 +50,49 @@ window.scrollTo({
     behaviour: "smooth",
     left: value
 });
+/* desc:
+    scrolls the window to a specific position, with a smooth animation.
+*/
 
 //[9]Get HTML from a URL:
-let xhr = new XMLHttpRequest;
+let xhr = new XMLHttpRequest();
 let html = xhr.responseTxt;
 let ele = document.createElement("div");
 ele.innerHTML = html;
 ele.querySelector("selector of element inside of ele")
+/* desc:
+    This code sends an HTTP request to a server using the XMLHttpRequest object, retrieves the response data as a string, creates a new HTML "div" element and sets its innerHTML to the response data. Then, it selects an element inside the "div" element using a CSS selector but does not do anything further with it.
+*/
 
 //[10]Detect page bottom: 
 window.addEventListener("scroll", (e) => {
     if (window.scrollY + window.innerHeight + 25 >= document.body.offsetHeight) {
-        console.log("hurry we are at the bottom of the page!!! :)");
+        console.log("Hurray, we are at the bottom of the page!!! :)");
     }
 });
 
+/*desc:
+ The code adds an event listener to the window object that listens for the "scroll" event. When the user scrolls the page, the code checks if the vertical distance from the top of the page to the bottom of the viewport plus 25 pixels is greater than or equal to the height of the entire document body. If it is, the code logs a message to the console.
+*/
+
 //[11]Scroll to an element without position:
 element.scrollIntoView({
-    behaviour: "smooth"
+    behavior: "smooth"
 });
+/*desc:
+ This code scrolls the viewport to bring the specified "element" into view, using a smooth scrolling animation rather than an instant jump. The "behavior: smooth" option is passed as an object to the "scrollIntoView" method to achieve this smooth scrolling effect.
+*/
 
 //[12]Decode URL:
-let decodedURL = decodeURIComponent(window.location.href);
+let decodedURL;
+try {
+    decodedURL = decodeURIComponent(window.location.href);
+} catch (e) {
+    console.error("Error decoding URL: " + e.message);
+}
+/* desc:
+    this code decodes the URL of the current web page, which is stored in the "window.location.href" property, and assigns the decoded URL to the variable "decodedURL". The "decodeURIComponent" function is used to decode any special characters in the URL, such as "%20" for a space character. If there are any errors during the decoding process, the code logs an error message to the console.
+*/    
 
 //[13]Search element based on the text inside of it: 
 function contains(selector, text) {
@@ -58,6 +101,9 @@ function contains(selector, text) {
         return text.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase() === element.innerText.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase();
     });
 }
+/*desc:
+ This code selects all the elements in the document that match the given CSS selector, and filters them to return only those elements whose text content matches the given "text" parameter. The text comparison is done after removing any non-alphanumeric characters and extra whitespace, and after converting both the element's text content and the search text to uppercase. The function returns an array of elements that match the search text.
+*/
 
 //[13]Extract search query:
 let searchParams = new URLSearchParams(window.location.search);
@@ -65,6 +111,9 @@ let searchQuery = {};
 for (const [key, value] of searchParams.entries()) {
     searchQuery[key] = value;
 }
+/* desc:
+ this code creates a new "URLSearchParams" object to extract and parse the query parameters from the URL of the current page. The "entries" method is used to iterate over all the query parameter key-value pairs in the object. For each pair, a new key-value pair is added to the "searchQuery" object, with the same key and value as in the URL parameters. The result is a JavaScript object that represents the search query parameters from the current URL, which can be used to access and manipulate the query parameters programmatically.
+*/
 
 //[14]Get cookie: 
 var getCookie = function (name) {
@@ -77,6 +126,9 @@ var getCookie = function (name) {
     }
     return null;
 };
+/*desc:
+ this code defines a JavaScript function called "getCookie" that takes a cookie name as a parameter and returns the corresponding cookie value. The function first constructs a string that consists of the cookie name followed by an equal sign (e.g. "cookieName="). It then splits the "document.cookie" string into individual cookies by splitting on semicolons, and iterates over each cookie to find the one that matches the provided cookie name. If the cookie is found, the function returns its value, which is everything after the equal sign. If the cookie is not found, the function returns null.
+*/
 
 //[15]Set cookie: 
 var setCookie = function (name, value, days) {
@@ -88,6 +140,9 @@ var setCookie = function (name, value, days) {
     }
     document.cookie = name + '=' + value + expires + '; path=/';
 };
+/*desc:
+  this code defines a JavaScript function called "setCookie" that takes a cookie name, a cookie value, and an optional number of days as parameters. The function first checks if a number of days was provided, and if so, it creates a new Date object and sets the expiration time to the current time plus the number of days provided (in milliseconds). It then constructs a string that consists of the cookie name, value, and expiration time, separated by semicolons and spaces. Finally, it sets the "document.cookie" property to this string, which adds the cookie to the browser's cookie storage. The cookie is set for the current path (i.e. "/", which means it applies to all pages on the current domain).
+*/
 
 // [17] COUNT DOWN TIMER
 function timer(timerObj) {
