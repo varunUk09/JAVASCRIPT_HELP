@@ -145,44 +145,66 @@ var setCookie = function (name, value, days) {
 */
 
 // [17] COUNT DOWN TIMER
-function timer(timerObj) {
-    // end date here
-    const endDate = new Date("1/14/2023 8:30:00 AM");
-
+function timer(timerObj, endDateString) {
+    const endDate = new Date(endDateString);
+  
     timerInterval = setInterval(() => {
-        const currentDate = new Date();
-        if (currentDate >= endDate) {
-            clearInterval(timerInterval);
-            // removing timer if it meets the future date
-            waitForElement(".eg-timer-wrapper", function () {
-                document.querySelector(".eg-timer-wrapper").remove();
-            }, 50, 15000);
-
-            return;
-        }
-        // calculate time remaining
-        const diff = endDate - currentDate;
-        const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let hoursLeft = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minsLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        let secsLeft = Math.floor((diff % (1000 * 60)) / 1000);
-
-        // update the timer values
-        timerObj.dys.textContent = (daysLeft <= 0) ? "0" : (daysLeft < 10) ? `0${daysLeft}` : daysLeft;
-        timerObj.hours.textContent = (hoursLeft <= 0) ? "0" : (hoursLeft < 10) ? `0${hoursLeft}` : hoursLeft;
-        timerObj.mins.textContent = (minsLeft <= 0) ? "0" : (minsLeft < 10) ? `0${minsLeft}` : minsLeft;
-        timerObj.secs.textContent = (secsLeft <= 0) ? "0" : (secsLeft < 10) ? `0${secsLeft}` : secsLeft;
-
-
-
+      const currentDate = new Date();
+      if (currentDate >= endDate) {
+        clearInterval(timerInterval);
+        // removing timer if it meets the future date
+        document.querySelector("element_selector").remove();
+        return;
+      }
+      
+      // convert the end date to UTC
+      const utcEndDate = new Date(
+        Date.UTC(
+          endDate.getUTCFullYear(),
+          endDate.getUTCMonth(),
+          endDate.getUTCDate(),
+          endDate.getUTCHours(),
+          endDate.getUTCMinutes(),
+          endDate.getUTCSeconds()
+        )
+      );
+  
+      // calculate time remaining
+      const diff = utcEndDate - currentDate;
+      const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+      let hoursLeft = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minsLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      let secsLeft = Math.floor((diff % (1000 * 60)) / 1000);
+  
+      // update the timer values
+      timerObj.dys.textContent = (daysLeft <= 0) ? "0" : (daysLeft < 10) ? `0${daysLeft}` : daysLeft;
+      timerObj.hours.textContent = (hoursLeft <= 0) ? "0" : (hoursLeft < 10) ? `0${hoursLeft}` : hoursLeft;
+      timerObj.mins.textContent = (minsLeft <= 0) ? "0" : (minsLeft < 10) ? `0${minsLeft}` : minsLeft;
+      timerObj.secs.textContent = (secsLeft <= 0) ? "0" : (secsLeft < 10) ? `0${secsLeft}` : secsLeft;
+  
     }, 1000);
-}
+  }
+/*desc:
+    This code defines a function named timer which takes two arguments: timerObj and endDateString.
+
+The function sets up a timer interval that updates the countdown displayed on a web page, based on the difference between the current date and the endDate passed as a string in endDateString.
+
+The timer is cleared and a DOM element is removed if the current date exceeds the endDate.
+
+The countdown displays the number of days, hours, minutes and seconds left until the endDate, with leading zeros added to numbers less than 10.
+*/
 
 // [18] YOUTUBE THUMBNAIL FETCH
-let
-default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
+let default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
 let hd = 'https://img.youtube.com/vi/DOyWP3GPWJ8/maxresdefault.jpg'
 let mobileFriendly = 'https://img.youtube.com/vi/DOyWP3GPWJ8/mqdefault.jpg'
+/*desc:
+ This code defines three variables that contain URLs to different thumbnail images for a YouTube video.
+
+The first variable default contains the URL for the default quality thumbnail image of a YouTube video. The second variable hd contains the URL for the high-definition quality thumbnail image of a YouTube video. The third variable mobileFriendly contains the URL for the mobile-friendly quality thumbnail image of a YouTube video.
+
+These URLs can be used to display thumbnail images for a YouTube video on a website or application.
+*/
 
 
 // [19] This function traverses up the DOM from a given element to find the closest parent element with a specified class.
@@ -201,6 +223,12 @@ var closestByClass = function (el, clazz) {
     // `clazz`
     return el
 }
+
+/*desc:
+ This code defines a function called closestByClass that takes two parameters: an element (el) and a class name (clazz). The function traverses the DOM (Document Object Model) up from the given element until it finds an ancestor element that has the specified class. If no ancestor element has the specified class, the function returns null. Once an ancestor element with the specified class is found, the function returns that element.
+
+In other words, this function returns the closest ancestor element of the given element that has the specified class name.
+*/
 
 
 // [20] This code adds an event listener to an input field that filters through an array of products and displays matching items in a suggestion list. The suggestion list is updated dynamically as the user types into the input field.
@@ -250,14 +278,19 @@ function showList() {
         document.querySelector(".eg-suggestion-list").insertAdjacentHTML("beforeend", egShowItemsHtml);
     });
 }
+/* desc:
+ This code defines an array of objects that contain information about various products, including a name, link, and a keyword that describes the product. It also includes a function called showList() which listens for user input in a search box and filters the products based on whether their associated keyword matches the search query. It then dynamically generates HTML elements to display a list of the filtered products as clickable links.
+*/
 
 /*
 [21] This JavaScript function matches a query string to a mapping string by removing special characters and consecutive spaces, converting both strings to uppercase, and checking if the query string is present in the mapping string. It returns a Boolean value indicating whether the match was successful or not.
 */
-
 function matchQuery(keyWord, query) {
     return (keyWord.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase().indexOf(query.replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ').toUpperCase()) != -1);
 }
+/*desc:
+ This code defines a function matchQuery that takes in two parameters: keyWord and query. The function first removes any non-alphanumeric characters and extra spaces from both the keyWord and query strings using regular expressions, then converts them to upper case. Finally, it checks if the query string appears in the modified keyWord string, and returns true if it does and false otherwise. Essentially, this function checks if a search query matches a given keyword by removing special characters, extra spaces, and case sensitivity.
+*/
 
 
 /*
@@ -281,6 +314,9 @@ function checkAjax() {
         return originalFetch(input, init);
     };
 }
+/*desc:
+ This code overrides the default fetch function in the browser to check if an AJAX call is made to a specific URL (/GetProducts). If such a call is made, it sets a timeout function to run after 2 seconds which then checks if the current web page has a specific CSS class ("eg-list-view"). If the class is present, it calls the moveCta() and getData() functions. Finally, it returns the original fetch function to its default behavior.
+*/
 
 // [23] Make multiple requests without waiting.
 /*
@@ -308,14 +344,22 @@ function getPDPData(url) {
                 if (!egItem.querySelector(".eg-para")) {
                     egItem.querySelector(".c-c-product-card_price").insertAdjacentHTML("beforebegin", `<p class="eg-para">${egDesEle.innerText}</p>`);
                 }
-            } else {
+            } /*else {
                 getPDPData(url);
-            }
+            }*/
         }
     };
     xhttp.open("GET", url, true);
     xhttp.send();
 }
+
+/*desc:
+ This code fetches product description data for each product on a webpage using AJAX and displays the data alongside the product price.
+
+The first block of code uses querySelectorAll to select all the product card elements on the page and checks if each one already has a .eg-para element. If not, it extracts the product URL and calls the getPDPData function with that URL.
+
+The getPDPData function makes an AJAX request to the URL provided and retrieves the HTML response data. It then creates a temporary element (<div>) and sets the HTML response data as its content. It then extracts the product description text from the element and checks if the description element exists. If the description element exists, it selects the corresponding product card on the page and inserts the description text before the product price element. If the description element does not exist, it recursively calls the getPDPData function with the same URL until it retrieves the correct data.
+*/
 
 
 // [24] BEST WAY TO DO TASK WHEN PAGE SCROLL
