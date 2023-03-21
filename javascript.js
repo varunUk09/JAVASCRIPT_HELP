@@ -92,7 +92,7 @@ try {
 }
 /* desc:
     this code decodes the URL of the current web page, which is stored in the "window.location.href" property, and assigns the decoded URL to the variable "decodedURL". The "decodeURIComponent" function is used to decode any special characters in the URL, such as "%20" for a space character. If there are any errors during the decoding process, the code logs an error message to the console.
-*/    
+*/
 
 //[13]Search element based on the text inside of it: 
 function contains(selector, text) {
@@ -147,43 +147,43 @@ var setCookie = function (name, value, days) {
 // [17] COUNT DOWN TIMER
 function timer(timerObj, endDateString) {
     const endDate = new Date(endDateString);
-  
+
     timerInterval = setInterval(() => {
-      const currentDate = new Date();
-      if (currentDate >= endDate) {
-        clearInterval(timerInterval);
-        // removing timer if it meets the future date
-        document.querySelector("element_selector").remove();
-        return;
-      }
-      
-      // convert the end date to UTC
-      const utcEndDate = new Date(
-        Date.UTC(
-          endDate.getUTCFullYear(),
-          endDate.getUTCMonth(),
-          endDate.getUTCDate(),
-          endDate.getUTCHours(),
-          endDate.getUTCMinutes(),
-          endDate.getUTCSeconds()
-        )
-      );
-  
-      // calculate time remaining
-      const diff = utcEndDate - currentDate;
-      const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
-      let hoursLeft = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minsLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      let secsLeft = Math.floor((diff % (1000 * 60)) / 1000);
-  
-      // update the timer values
-      timerObj.dys.textContent = (daysLeft <= 0) ? "0" : (daysLeft < 10) ? `0${daysLeft}` : daysLeft;
-      timerObj.hours.textContent = (hoursLeft <= 0) ? "0" : (hoursLeft < 10) ? `0${hoursLeft}` : hoursLeft;
-      timerObj.mins.textContent = (minsLeft <= 0) ? "0" : (minsLeft < 10) ? `0${minsLeft}` : minsLeft;
-      timerObj.secs.textContent = (secsLeft <= 0) ? "0" : (secsLeft < 10) ? `0${secsLeft}` : secsLeft;
-  
+        const currentDate = new Date();
+        if (currentDate >= endDate) {
+            clearInterval(timerInterval);
+            // removing timer if it meets the future date
+            document.querySelector("element_selector").remove();
+            return;
+        }
+
+        // convert the end date to UTC
+        const utcEndDate = new Date(
+            Date.UTC(
+                endDate.getUTCFullYear(),
+                endDate.getUTCMonth(),
+                endDate.getUTCDate(),
+                endDate.getUTCHours(),
+                endDate.getUTCMinutes(),
+                endDate.getUTCSeconds()
+            )
+        );
+
+        // calculate time remaining
+        const diff = utcEndDate - currentDate;
+        const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hoursLeft = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minsLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let secsLeft = Math.floor((diff % (1000 * 60)) / 1000);
+
+        // update the timer values
+        timerObj.dys.textContent = (daysLeft <= 0) ? "0" : (daysLeft < 10) ? `0${daysLeft}` : daysLeft;
+        timerObj.hours.textContent = (hoursLeft <= 0) ? "0" : (hoursLeft < 10) ? `0${hoursLeft}` : hoursLeft;
+        timerObj.mins.textContent = (minsLeft <= 0) ? "0" : (minsLeft < 10) ? `0${minsLeft}` : minsLeft;
+        timerObj.secs.textContent = (secsLeft <= 0) ? "0" : (secsLeft < 10) ? `0${secsLeft}` : secsLeft;
+
     }, 1000);
-  }
+}
 /*desc:
     This code defines a function named timer which takes two arguments: timerObj and endDateString.
 
@@ -195,7 +195,8 @@ The countdown displays the number of days, hours, minutes and seconds left until
 */
 
 // [18] YOUTUBE THUMBNAIL FETCH
-let default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
+let
+default = 'https://img.youtube.com/vi/<insert-youtube-video-id-here>/default.jpg'
 let hd = 'https://img.youtube.com/vi/DOyWP3GPWJ8/maxresdefault.jpg'
 let mobileFriendly = 'https://img.youtube.com/vi/DOyWP3GPWJ8/mqdefault.jpg'
 /*desc:
@@ -344,9 +345,10 @@ function getPDPData(url) {
                 if (!egItem.querySelector(".eg-para")) {
                     egItem.querySelector(".c-c-product-card_price").insertAdjacentHTML("beforebegin", `<p class="eg-para">${egDesEle.innerText}</p>`);
                 }
-            } /*else {
-                getPDPData(url);
-            }*/
+            }
+            /*else {
+                           getPDPData(url);
+                       }*/
         }
     };
     xhttp.open("GET", url, true);
@@ -528,3 +530,11 @@ const names = {
 console.log(findByName("Brigss")); // "https://octostatic.com/nextopart/static/manufacturer-logos/Briggs%20Stratton%20.png"
 console.log(findByName("Analog")); // "https://octostatic.com/nextopart/static/manufacturer-logos/Analog%20Services.png"
 console.log(findByName("Samsung")); // null
+
+// [30] Adding CSS styles to a Shadow DOM element
+/* This code creates a new style element and sets its innerHTML to a CSS style rule. Then, it appends the style element to the shadowRoot of the host element, adding the CSS styles to the Shadow DOM. This allows the styles to be scoped to the Shadow DOM and not affect any other elements on the page.
+ */
+//host is the element that holds the shadow root:
+var style = document.createElement('style')
+style.innerHTML = '.the-class-name { property-name: my-value; }'
+host.shadowRoot.appendChild(style)
