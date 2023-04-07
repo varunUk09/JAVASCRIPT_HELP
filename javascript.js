@@ -235,35 +235,35 @@ In other words, this function returns the closest ancestor element of the given 
 // [20] This code adds an event listener to an input field that filters through an array of products and displays matching items in a suggestion list. The suggestion list is updated dynamically as the user types into the input field.
 // Javascript autocomplete
 let egItems = [{
-        "name": "Classic Whip SPF 30",
-        "link": "https://www.vacation.inc/products/sun-screen",
-        "keyWord": `Classic Whip SPF 30 “The World’s Best-Smelling Sunscreen” SPF 30 Sunscreen Lotion — $18 Classic Lotion | The Worlds Best-Smelling Sunscreen | Vacation®`
-    },
-    {
-        "name": "Ball Boy Scented Candle",
-        "link": "https://www.vacation.inc/products/ball-boy-candle",
-        "keyWord": `Ball Boy Scented Candle Prince® x Vacation® Collection — $42 Vacation® X Prince® |  Ball Boy Scented Candle`
-    },
-    {
-        "name": "Chardonnay Oil SPF 30",
-        "link": "https://www.vacation.inc/products/chardonnay-oil-spf-30",
-        "keyWord": `Chardonnay Oil SPF 30 Chardonnay Oil | SPF 30 Sunscreen Oil | Vacation® “The World's Most Indulgent Sunscreen” SPF 30 Sunscreen Oil — $22`
-    },
-    {
-        "name": "Classic Spray SPF 30",
-        "link": "https://www.vacation.inc/products/classic-whip-spf-30",
-        "keyWord": `Classic Spray SPF 30 Vacation® Classic Whip |  SPF 30 Sunscreen Mousse “Dessert For Your Skin” SPF 30 Sunscreen Mousse — $22`
-    },
-    {
-        "name": "Super Spritzer",
-        "link": "https://www.vacation.inc/products/super-spritzer",
-        "keyWord": `Super Spritzer “Vaporized Refreshment” Hydrating Face Mist — $12 Super Spritzer | The Worlds Best-Smelling Sunscreen | Vacation®`
-    },
-    {
-        "name": "Mineral Lotion SPF 30",
-        "link": "https://www.vacation.inc/products/mineral-lotion-spf-30",
-        "keyWord": `Mineral Lotion SPF 30 “Luxury-Grade Zinc Based Protection” SPF 30 Mineral Lotion — $20 Mineral Lotion | The Worlds Best-Smelling Sunscreen | Vacation®`
-    }
+    "name": "Classic Whip SPF 30",
+    "link": "https://www.vacation.inc/products/sun-screen",
+    "keyWord": `Classic Whip SPF 30 “The World’s Best-Smelling Sunscreen” SPF 30 Sunscreen Lotion — $18 Classic Lotion | The Worlds Best-Smelling Sunscreen | Vacation®`
+},
+{
+    "name": "Ball Boy Scented Candle",
+    "link": "https://www.vacation.inc/products/ball-boy-candle",
+    "keyWord": `Ball Boy Scented Candle Prince® x Vacation® Collection — $42 Vacation® X Prince® |  Ball Boy Scented Candle`
+},
+{
+    "name": "Chardonnay Oil SPF 30",
+    "link": "https://www.vacation.inc/products/chardonnay-oil-spf-30",
+    "keyWord": `Chardonnay Oil SPF 30 Chardonnay Oil | SPF 30 Sunscreen Oil | Vacation® “The World's Most Indulgent Sunscreen” SPF 30 Sunscreen Oil — $22`
+},
+{
+    "name": "Classic Spray SPF 30",
+    "link": "https://www.vacation.inc/products/classic-whip-spf-30",
+    "keyWord": `Classic Spray SPF 30 Vacation® Classic Whip |  SPF 30 Sunscreen Mousse “Dessert For Your Skin” SPF 30 Sunscreen Mousse — $22`
+},
+{
+    "name": "Super Spritzer",
+    "link": "https://www.vacation.inc/products/super-spritzer",
+    "keyWord": `Super Spritzer “Vaporized Refreshment” Hydrating Face Mist — $12 Super Spritzer | The Worlds Best-Smelling Sunscreen | Vacation®`
+},
+{
+    "name": "Mineral Lotion SPF 30",
+    "link": "https://www.vacation.inc/products/mineral-lotion-spf-30",
+    "keyWord": `Mineral Lotion SPF 30 “Luxury-Grade Zinc Based Protection” SPF 30 Mineral Lotion — $20 Mineral Lotion | The Worlds Best-Smelling Sunscreen | Vacation®`
+}
 ]
 
 function showList() {
@@ -495,12 +495,12 @@ checkLinks(json).then(result => console.log(result));
 // OUTPUT
 {
     "ABB": true,
-    "Amphenol": true,
-    "Analog Services": true,
-    "Biostar": true,
-    "Bose": true,
-    "Bourns": true,
-    "Briggs Stratton": true
+        "Amphenol": true,
+            "Analog Services": true,
+                "Biostar": true,
+                    "Bose": true,
+                        "Bourns": true,
+                            "Briggs Stratton": true
 }
 
 // [29]A function that takes a name and returns the value of the corresponding key from an object if any key contains the name.
@@ -537,4 +537,20 @@ console.log(findByName("Samsung")); // null
 //host is the element that holds the shadow root:
 var style = document.createElement('style')
 style.innerHTML = '.the-class-name { property-name: my-value; }'
-host.shadowRoot.appendChild(style)
+host.shadowRoot.appendChild(style);
+
+/*[30] Detect size change of body*/
+function watchBodySizeChanges(callback) {
+    const body = document.body;
+    const observer = new ResizeObserver(entries => {
+        for (const entry of entries) {
+            const { width, height } = entry.contentRect;
+            callback(width, height);
+        }
+    });
+    observer.observe(body);
+}
+
+watchBodySizeChanges((width, height) => {
+    console.log(`Body size changed: ${width} x ${height}`);
+});
