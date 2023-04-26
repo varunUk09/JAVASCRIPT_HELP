@@ -554,3 +554,20 @@ function watchBodySizeChanges(callback) {
 watchBodySizeChanges((width, height) => {
     console.log(`Body size changed: ${width} x ${height}`);
 });
+
+/*[31] Copy to clip board*/
+function copyToClipboard(text) {
+    // Create a temporary input element
+    const input = document.createElement('input');
+    input.setAttribute('value', text);
+    document.body.appendChild(input);
+
+    // Select the text in the input element
+    input.select();
+
+    // Copy the selected text to the clipboard
+    document.execCommand('copy');
+
+    // Remove the temporary input element
+    document.body.removeChild(input);
+}
