@@ -571,3 +571,24 @@ function copyToClipboard(text) {
     // Remove the temporary input element
     document.body.removeChild(input);
 }
+
+// [32] money formatter with currency code
+// MONEY FORMATTER
+function formatMoneyWithCurrencySign(money, currencyCode) {
+    const locale = `en-${currencyCode.substring(0, 2)}`;
+    const currencyFormatter = new Intl.NumberFormat(locale, { style: "currency", currency: currencyCode, minimumFractionDigits: 0 });
+    const parts = currencyFormatter.formatToParts(money);
+    const currencySign = parts.find(part => part.type === "currency").value;
+    const formattedMoney = currencyFormatter.format(money);
+
+    return `${formattedMoney}`;
+}
+
+// usage:
+formatMoneyWithCurrencySign(10000, "USD") // output: $10,000;
+
+// [33] find child number ( what number child this is?)
+let childNumber = Array.from(parentElement.children).indexOf(children);
+
+// [34] find object with key
+const foundCabin = departureJson.cabins.find(obj => obj.name === cabinName);
