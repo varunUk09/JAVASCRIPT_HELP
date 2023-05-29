@@ -595,63 +595,42 @@ const foundCabin = departureJson.cabins.find(obj => obj.name === cabinName);
 
 // [35] generate breadcrumb
 // CREATE BREADCRUMBS ( Function to generate the breadcrumb based on the previous URL and current page )
+// CREATE BREADCRUMBS ( Function to generate the breadcrumb based on the previous URL and current page )
 function generateBreadcrumb() {
-    // Get the previous URL
     const previousUrl = document.referrer;
-
-    // Get the current page URL
     const currentUrl = window.location.href;
-
-    // Define the breadcrumb root and separator
-    const breadcrumbRoot = "Home";
+    const breadcrumbRoot = `<nav id="eg-bread-crumb"><a class="eg-bread-crum-itm" href="/">Home</a>`;
     const separator = " > ";
-
-    // Define a default breadcrumb
     let breadcrumb = breadcrumbRoot;
-
-    // Check if the previous URL exists and matches known pages
     if (previousUrl && previousUrl.includes("/search-results")) {
-        breadcrumb += separator + "Search Page";
+        breadcrumb += separator + `<a class="eg-bread-crum-itm" href="${previousUrl}">Search Results</a>`;
     } else if (previousUrl && previousUrl.includes("/new")) {
-        breadcrumb += separator + "Product Listing Page";
+        breadcrumb += separator + `<a class="eg-bread-crum-itm" href="${previousUrl}">New</a>`;
     }
-
-    // Determine the current page and add it to the breadcrumb
     if (currentUrl.includes("/products/")) {
-        // Extract the product name from the URL
         const productNameStartIndex = currentUrl.lastIndexOf("/") + 1;
-        const productNameEndIndex = currentUrl.indexOf("?");
+        let productNameEndIndex = currentUrl.indexOf("?");
+        if (productNameEndIndex === -1) {
+            productNameEndIndex = currentUrl.length;
+        }
         let productName = currentUrl.substring(productNameStartIndex, productNameEndIndex);
         productName = productName.replace(/-/g, " ");
-        breadcrumb += separator + productName;
+        breadcrumb += separator + `<a class="eg-product-name">${productName}</a>`;
     }
 
-    // Log the generated breadcrumb
-    console.log(breadcrumb);
+    breadcrumb += `</nav>`;
 
-    // Split the breadcrumb into individual items
-    const breadcrumbItems = breadcrumb.split(separator);
-
-    // Create a breadcrumb container element
-    const breadcrumbContainer = document.createElement("nav");
-    breadcrumbContainer.setAttribute("id", "eg-bread-crumb");
-    breadcrumbContainer.innerHTML = "";
-
-    // Loop through each breadcrumb item and create corresponding links
-    breadcrumbItems.forEach(function (item, index) {
-        const link = document.createElement("a");
-        link.href = "#";
-        link.innerText = item.trim();
-        breadcrumbContainer.appendChild(link);
-
-        // Add the separator after each item (except the last one)
-        if (index < breadcrumbItems.length - 1) {
-            breadcrumbContainer.appendChild(document.createTextNode(separator));
-        }
-    });
-
-    // Log the breadcrumb container
-    console.log(breadcrumbContainer);
+    // Check if breadcrumb exists in localStorage
+    const storedBreadcrumb = localStorage.getItem("eg-bread-crumb-el");
+    if (storedBreadcrumb !== null) {
+        // Use the stored breadcrumb if it exists
+        let savedBCumb = JSON.parse(storedBreadcrumb);
+        console.log(savedBCumb);
+    } else {
+        // Store the breadcrumb in localStorage
+        console.log(breadcrumb);
+        localStorage.setItem("eg-bread-crumb-el", JSON.stringify(breadcrumb));
+    }
 }
 
 
