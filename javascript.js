@@ -592,3 +592,53 @@ let childNumber = Array.from(parentElement.children).indexOf(children);
 
 // [34] find object with key
 const foundCabin = departureJson.cabins.find(obj => obj.name === cabinName);
+
+// [35] generate breadcrumb
+// CREATE BREADCRUMBS ( Function to generate the breadcrumb based on the previous URL and current page )
+function generateBreadcrumb() {
+    // Get the previous URL
+    var previousUrl = document.referrer;
+    // Get the current page URL
+    var currentUrl = window.location.href;
+    // Define the breadcrumb root and separator
+    var breadcrumbRoot = "Home";
+    var separator = " > ";
+    // Define a default breadcrumb
+    var breadcrumb = breadcrumbRoot;
+    // Check if the previous URL exists and matches known pages
+    if (previousUrl && previousUrl.includes("/search-results")) {
+        breadcrumb += separator + "Search Page";
+    } else if (previousUrl && previousUrl.includes("/new")) {
+        breadcrumb += separator + "Product Listing Page";
+    }
+    // Determine the current page and add it to the breadcrumb
+    if (currentUrl.includes("/products/")) {
+        var productNameStartIndex = currentUrl.lastIndexOf("/") + 1;
+        var productNameEndIndex = currentUrl.indexOf("?");
+        var productName = currentUrl.substring(productNameStartIndex, productNameEndIndex);
+        productName = productName.replace(/-/g, " "); // Replace hyphens with spaces
+
+        breadcrumb += separator + productName;
+    }
+    // Display the breadcrumb
+    console.log(breadcrumb);
+    // Convert each breadcrumb item to an <a> tag
+    var breadcrumbItems = breadcrumb.split(separator);
+    var breadcrumbContainer = document.getElementById("breadcrumb");
+    breadcrumbContainer.innerHTML = ""; // Clear existing content
+    breadcrumbItems.forEach(function (item, index) {
+        // Create the <a> tag
+        var link = document.createElement("a");
+        link.href = "#"; // Replace with the appropriate URLs for each breadcrumb item
+        link.innerText = item.trim();
+        // Add the link to the breadcrumb container
+        breadcrumbContainer.appendChild(link);
+        // Add the separator after each item (except the last one)
+        if (index < breadcrumbItems.length - 1) {
+            breadcrumbContainer.appendChild(document.createTextNode(separator));
+        }
+    });
+    console.log(breadcrumbContainer);
+}
+
+window.onload = generateBreadcrumb;
