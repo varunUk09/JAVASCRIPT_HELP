@@ -599,7 +599,7 @@ const foundCabin = departureJson.cabins.find(obj => obj.name === cabinName);
 function generateBreadcrumb() {
     const previousUrl = document.referrer;
     const currentUrl = window.location.href;
-    const breadcrumbRoot = `<nav id="eg-bread-crumb"><a class="eg-bread-crum-itm" href="/">Home</a>`;
+    const breadcrumbRoot = `<a class="eg-bread-crum-itm" href="/">Home</a>`;
     const separator = " > ";
     let breadcrumb = breadcrumbRoot;
     if (previousUrl && previousUrl.includes("/search-results")) {
@@ -615,10 +615,8 @@ function generateBreadcrumb() {
         }
         let productName = currentUrl.substring(productNameStartIndex, productNameEndIndex);
         productName = productName.replace(/-/g, " ");
-        breadcrumb += separator + `<a class="eg-product-name">${productName}</a>`;
+        breadcrumb += separator + `<a class="eg-product-name-bd">${productName}</a>`;
     }
-
-    breadcrumb += `</nav>`;
 
     // Check if breadcrumb exists in localStorage
     const storedBreadcrumb = localStorage.getItem("eg-bread-crumb-el");
@@ -626,12 +624,20 @@ function generateBreadcrumb() {
         // Use the stored breadcrumb if it exists
         let savedBCumb = JSON.parse(storedBreadcrumb);
         console.log(savedBCumb);
+        waitForElement("#eg-bread-crumb", function () {
+            document.querySelector("#eg-bread-crumb").innerHTML = savedBCumb;
+        }, 50, 1500);
     } else {
         // Store the breadcrumb in localStorage
         console.log(breadcrumb);
+        waitForElement("#eg-bread-crumb", function () {
+            document.querySelector("#eg-bread-crumb").innerHTML = breadcrumb;
+        }, 50, 1500);
         localStorage.setItem("eg-bread-crumb-el", JSON.stringify(breadcrumb));
     }
 }
+
+// local storage should be cleared it user navigate to different page from pdp
 
 
 window.onload = generateBreadcrumb;
