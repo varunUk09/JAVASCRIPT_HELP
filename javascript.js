@@ -641,3 +641,16 @@ function generateBreadcrumb() {
 
 
 window.onload = generateBreadcrumb;
+
+// [36] REMOVE ELEMENT AFTER FEW CENTER SCROLL
+const scrollDistance = 200 // in px
+const removeThankuMsg = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop >= scrollDistance) {
+        document.querySelector(".eg-news-letter-des.eg-show-m") && document.querySelector(".eg-news-letter-des.eg-show-m").remove();
+        // Remove the event listener once the element is removed (optional)
+        window.removeEventListener('scroll', removeThankuMsg);
+    }
+}
+
+window.addEventListener("scroll", removeThankuMsg);
