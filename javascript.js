@@ -654,3 +654,25 @@ const removeThankuMsg = () => {
 }
 
 window.addEventListener("scroll", removeThankuMsg);
+
+// [37] f you want to check if the current URL matches any of the paths in the collectionPages array and apply a class to the document.body element accordingly, you can use the following JavaScript code:
+const collectionPages = [
+    "/collections/tous-nos-colliers-et-pendentifs/",
+    "/collections/colliers-pendentifs",
+    "/collections/pendentifs/",
+    "/collections/1-inscription",
+    "/collections/2-inscriptions",
+    "/collections/3-inscriptions",
+    "/collections/4-inscriptions-ou-plus",
+    "/collections/initiales",
+    "/collections/origami",
+    "/collections/signes-du-zodiac"
+];
+
+const currentPath = window.location.pathname;
+
+if (collectionPages.some(path => currentPath.includes(path))) {
+    document.body.classList.add("eg-pdp");
+} else {
+    document.body.classList.add("eg-not-pdp");
+}
