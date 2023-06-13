@@ -676,3 +676,26 @@ if (collectionPages.some(path => currentPath.includes(path))) {
 } else {
     document.body.classList.add("eg-not-pdp");
 }
+
+// [ 38 ] detect stop scroll
+// mobile scroll
+const setStickyMob = () => {
+    var scrollTimer = -1;
+    window.addEventListener('scroll', bodyScroll);
+    function bodyScroll() {
+        let header = document.querySelector("html body #top_main_banner #page-vue-header-mainmenu");
+        let searchBox = header.querySelector(".elastic-wr");
+        if (searchBox) {
+            searchBox.classList.remove("eg-sticky");
+            console.log('scrolling');
+            if (scrollTimer != -1) {
+                clearTimeout(scrollTimer);
+            }
+            scrollTimer = window.setTimeout(scrollFinished, 500);
+        }
+        function scrollFinished() {
+            searchBox.classList.add("eg-sticky");
+            console.log('stoped');
+        }
+    }
+}
