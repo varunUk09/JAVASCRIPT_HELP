@@ -700,7 +700,7 @@ const setStickyMob = () => {
     }
 }
 
-// [39] check if element bottom or top reached
+// [39] check if element bottom or top reached Check Element Viewport Status
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
