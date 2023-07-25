@@ -299,25 +299,21 @@ function matchQuery(keyWord, query) {
  */
 // DETECT FETCH API
 
-function checkAjax() {
+function monitorFetchRequests() {
     const originalFetch = window.fetch;
     window.fetch = function (input, init) {
-        if (input.url) {
-            if (input.url.indexOf('/GetProducts') !== -1) {
-                setTimeout(() => {
-                    if (document.body.classList.contains("eg-list-view")) {
-                        moveCta();
-                    }
-                    getData();
-                }, 2000);
-            }
+        const isGetProductsRequest = input.url && input.url.indexOf('/GetProducts') !== -1;
+
+        if (isGetProductsRequest) {
+            console.log('Request made to /GetProducts:', input.url);
         }
-        return originalFetch(input, init);
+
+        return originalFetch.apply(this, arguments);
     };
 }
-/*desc:
- This code overrides the default fetch function in the browser to check if an AJAX call is made to a specific URL (/GetProducts). If such a call is made, it sets a timeout function to run after 2 seconds which then checks if the current web page has a specific CSS class ("eg-list-view"). If the class is present, it calls the moveCta() and getData() functions. Finally, it returns the original fetch function to its default behavior.
-*/
+
+// To start monitoring, call the function
+monitorFetchRequests();
 
 // [23] Make multiple requests without waiting.
 /*
