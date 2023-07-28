@@ -707,7 +707,15 @@ function isInViewport(element) {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
     );
 }
-
+// this will only work from one direction bottom
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    const extraToBottom = 0;
+    return (
+        (rect.bottom - extraToBottom > 0 && rect.top < window.innerHeight) || // Bottom is visible, or
+        (rect.top >= window.innerHeight && rect.bottom - extraToBottom <= window.innerHeight) // Starts to appear from the bottom
+    );
+}
 
 // If the element is in the viewport, the function returns true. Otherwise, it returns false.
 
