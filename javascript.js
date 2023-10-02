@@ -735,3 +735,47 @@ function searchToObject(searchQuery) {
 
     return obj;
 }
+
+// [41] search for key in object key could be anywhere in the object direct or grand child 
+function findValueByKey(obj, key) {
+    // Base case: if the current object is null or undefined, return undefined
+    if (obj === null || typeof obj !== 'object') {
+        return undefined;
+    }
+
+    // Check if the current object has the key
+    if (key in obj) {
+        return obj[key];
+    }
+
+    // Iterate through the object properties and search recursively
+    for (const prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            const result = findValueByKey(obj[prop], key);
+
+            if (result !== undefined) {
+                return result;
+            }
+        }
+    }
+
+    // Key not found
+    return undefined;
+}
+
+// Example usage
+const obj = {
+    a: 1,
+    b: {
+        c: {
+            d: 2
+        }
+    },
+    e: {
+        f: 3
+    }
+};
+
+const keyToSearch = 'd';
+const result = findValueByKey(obj, keyToSearch);
+console.log(`Value for key '${keyToSearch}':`, result); // Output: Value for key 'd': 2
