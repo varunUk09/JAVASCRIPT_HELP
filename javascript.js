@@ -301,14 +301,17 @@ function matchQuery(keyWord, query) {
 
 function monitorFetchRequests() {
     const originalFetch = window.fetch;
-    window.fetch = function (input, init) {
-        const isGetProductsRequest = input.url && input.url.indexOf('/GetProducts') !== -1;
 
-        if (isGetProductsRequest) {
-            console.log('Request made to /GetProducts:', input.url);
-        }
+    window.fetch = function (input, initt) {
+        const fetchPromise = originalFetch(input, initt);
 
-        return originalFetch.apply(this, arguments);
+        fetchPromise.then(response => {
+            if (response.url.indexOf("/conversation") !== -1) {
+                console.log("listened")
+            }
+        });
+
+        return fetchPromise;
     };
 }
 
