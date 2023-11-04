@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+
+html body .img_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+html body .img_box img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+html body .swiper-wrapper {
+    align-items: stretch !important;
+}
+
+html body .swiper-slide {
+    height: auto !important;
+    aspect-ratio: 1/1;
+}
+
+html body .swiper-pagination {
+    top: unset !important;
+    bottom: 0rem !important;
+}
+
+html body .mySwiper {
+    padding-bottom: 3rem;
+}
