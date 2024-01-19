@@ -781,3 +781,21 @@ const obj = {
 const keyToSearch = 'd';
 const result = findValueByKey(obj, keyToSearch);
 console.log(`Value for key '${keyToSearch}':`, result); // Output: Value for key 'd': 2
+
+// [42] Simulate react fileds value change, change react fields value with javascript
+function setNativeValue(element, value) {
+    let lastValue = element.value;
+    element.value = value;
+    let event = new Event("input", { target: element, bubbles: true });
+    // React 15
+    event.simulated = true;
+    // React 16
+    let tracker = element._valueTracker;
+    if (tracker) {
+        tracker.setValue(lastValue);
+    }
+    element.dispatchEvent(event);
+}
+
+var input = document.getElementById("ID OF ELEMENT");
+setNativeValue(input, "VALUE YOU WANT TO SET");
