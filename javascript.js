@@ -799,3 +799,20 @@ function setNativeValue(element, value) {
 
 var input = document.getElementById("ID OF ELEMENT");
 setNativeValue(input, "VALUE YOU WANT TO SET");
+
+// [43] scroll into view , scroll to element , jump to section
+function jumptoSection(targetSel) {
+    const el = document.querySelector(targetSel);
+    if (el) {
+        let extrapart = 30;
+        if (window.innerWidth < 1025) {
+            extrapart = -30;
+        }
+        const elTop = el.offsetTop + extrapart;
+        window.scrollTo({
+            top: elTop,
+            left: 0,
+            behavior: "smooth",
+        });
+    }
+}
